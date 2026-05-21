@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Amiimu Gadgets</title>
+    <meta name="description" content="Contact Amiimu Gadgets - Kampala Road, EM Plaza, Level 2, Shop 407. Call +256 743485380 or visit us today.">
+    <link rel="icon" type="image/png" href="../Logo/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* ============================================
+           Contact Page - Mobile-First Responsive
+           ============================================ */
+
+        /* ---- Contact Intro ---- */
+        .contact-intro h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .contact-intro p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ---- Quick Actions Grid ---- */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .quick-actions-grid .why-card {
+            padding: 28px 22px;
+        }
+
+        /* ---- FAQ Grid ---- */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        /* ---- Map ---- */
+        .map-container {
+            margin-top: 40px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: none;
+            border-radius: var(--border-radius);
+        }
+
+        /* ---- Contact Grid Override (mobile-first: single column) ---- */
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        /* ---- Form Row (mobile-first: single column) ---- */
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        /* ---- Contact Success Message ---- */
+        .contact-success {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .contact-success.visible {
+            display: block;
+        }
+
+        .contact-success .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(43, 184, 196, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .contact-success .success-icon i {
+            font-size: 2.5rem;
+            color: var(--highlight);
+        }
+
+        .contact-success h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .contact-success p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        /* ---- Contact Info Cards (mobile-friendly) ---- */
+        .contact-info-card {
+            padding: 16px;
+        }
+
+        .contact-info-card .icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+        }
+
+        .contact-info-card .icon i {
+            font-size: 1.2rem;
+        }
+
+        /* ---- Contact Form (mobile-friendly) ---- */
+        .contact-form {
+            padding: 24px 18px;
+        }
+
+        .contact-form h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        /* ---- Form inputs - larger touch targets for mobile ---- */
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 14px 16px;
+            font-size: 16px; /* Prevents iOS zoom on focus */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236a7a8a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+        }
+
+        /* ---- Submit button - full width, large touch target ---- */
+        .contact-submit-btn {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--highlight), #2ab8bf);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .contact-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(43, 184, 196, 0.4);
+        }
+
+        .contact-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ---- Quick action cards - touch-friendly ---- */
+        .quick-actions-grid .why-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: auto;
+        }
+
+        .quick-actions-grid .why-card p {
+            font-size: 0.85rem;
+        }
+
+        /* ---- Section spacing for mobile ---- */
+        .section-padding {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            margin-bottom: 35px;
+            font-size: 0.9rem;
+        }
+
+        /* ---- Page Header mobile ---- */
+        .page-header {
+            padding: 120px 0 45px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+        }
+
+        /* ---- Responsive: Large phones (576px+) ---- */
+        @media (min-width: 576px) {
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .contact-form {
+                padding: 30px 24px;
+            }
+
+            .map-container iframe {
+                height: 300px;
+            }
+
+            .page-header h1 {
+                font-size: 2.1rem;
+            }
+        }
+
+        /* ---- Responsive: Tablets (768px+) ---- */
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+            }
+
+            .quick-actions-grid .why-card {
+                flex-direction: column;
+            }
+
+            .contact-form {
+                padding: 40px;
+            }
+
+            .contact-form h2 {
+                font-size: 1.5rem;
+            }
+
+            .contact-info-card {
+                padding: 20px;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .map-container iframe {
+                height: 380px;
+            }
+
+            .page-header {
+                padding: 140px 0 60px;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* ---- Responsive: Desktops (992px+) ---- */
+        @media (min-width: 992px) {
+            .contact-intro h2 {
+                font-size: 1.8rem;
+            }
+
+            .faq-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .map-container iframe {
+                height: 400px;
+            }
+        }
+
+        /* ---- Small phones (below 375px) ---- */
+        @media (max-width: 374px) {
+            .contact-intro h2 {
+                font-size: 1.2rem;
+            }
+
+            .contact-form {
+                padding: 20px 14px;
+            }
+
+            .contact-form h2 {
+                font-size: 1.1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .contact-submit-btn {
+                padding: 14px 24px;
+                font-size: 0.9rem;
+            }
+
+            .contact-info-card {
+                padding: 14px 12px;
+                gap: 12px;
+            }
+
+            .contact-info-card .icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../Logo/logo.png" alt="Amiimu Gadgets Logo">
+                <span class="nav-logo-text">Amiimu<span>Gadgets</span></span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="Shop.html" class="nav-link">Shop</a></li>
+                <li><a href="About.html" class="nav-link">About</a></li>
+                <li><a href="Contact.html" class="nav-link active">Contact</a></li>
+                <li>
+                    <div class="nav-search">
+                        <i class='bx bx-search'></i>
+                        <input type="text" placeholder="Search products..." id="searchInput" autocomplete="off">
+                    </div>
+                </li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact <span class="highlight-text">Us</span></h1>
+            <p>Get in touch with our team for orders, inquiries, and support</p>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <span>Contact Us</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="section-padding" style="background: var(--dark);">
+        <div class="container">
+            <div class="contact-grid">
+
+                <!-- Left: Contact Info Cards -->
+                <div>
+                    <div class="contact-intro">
+                        <h2>Get In <span class="highlight-text">Touch</span></h2>
+                        <p>We would love to hear from you. Whether you have a question about our products, need help with an order, or want to inquire about repair services, our team is ready to assist you. Reach out to us through any of the channels below, or visit our physical store on Kampala Road.</p>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="contact-info-card fade-in">
+                        <div class="icon">
+                            <i class='bx bx-map'></i>
+                        </div>
+                        <div>
+                            <h3>Our Location</h3>
+                            <p>Kampala Road, EM Plaza, Level 2, Shop 407<br>Kampala, Uganda</p>
+                            <p style="margin-top: 8px; color: var(--highlight); font-size: 0.8rem;">Open Monday to Saturday: 8:00 AM - 8:00 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="contact-info-card fade-in">
+                        <div class="icon">
+                            <i class='bx bx-phone'></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p><a href="tel:+256743485380" style="color: inherit;">+256 743485380</a></p>
+                            <p style="margin-top: 8px; color: var(--highlight); font-size: 0.8rem;">Available 24/7 for calls and WhatsApp</p>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="contact-info-card fade-in">
+                        <div class="icon">
+                            <i class='bx bxl-whatsapp'></i>
+                        </div>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p><a href="https://wa.me/256743485380" target="_blank" style="color: inherit;">+256 743485380</a></p>
+                            <p style="margin-top: 8px; color: var(--highlight); font-size: 0.8rem;">Quick responses on WhatsApp for orders and inquiries</p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="contact-info-card fade-in">
+                        <div class="icon">
+                            <i class='bx bx-envelope'></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>amiimugadgets2026ug@gmail.com</p>
+                            <p style="margin-top: 8px; color: var(--highlight); font-size: 0.8rem;">We respond to emails within 24 hours</p>
+                        </div>
+                    </div>
+
+                    <!-- Business Hours -->
+                    <div class="contact-info-card fade-in">
+                        <div class="icon">
+                            <i class='bx bx-time-five'></i>
+                        </div>
+                        <div>
+                            <h3>Business Hours</h3>
+                            <p>Monday - Friday: 8:00 AM - 8:00 PM<br>Saturday: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                            <p style="margin-top: 8px; color: var(--highlight); font-size: 0.8rem;">Online orders accepted 24/7</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="contact-form fade-in" id="contactFormWrapper">
+                    <h2>Send Us a <span class="highlight-text">Message</span></h2>
+
+                    <!-- Success message (shown after form submits) -->
+                    <div class="contact-success" id="contactSuccess">
+                        <div class="success-icon">
+                            <i class='bx bx-check'></i>
+                        </div>
+                        <h3>Message Sent!</h3>
+                        <p>Thank you for reaching out. Our team will review your message and get back to you within 24 hours. You can also reach us directly on WhatsApp for faster responses.</p>
+                        <a href="https://wa.me/256743485380" target="_blank" class="btn-primary" style="width: auto; display: inline-flex;">
+                            <i class='bx bxl-whatsapp'></i> Chat on WhatsApp
+                        </a>
+                    </div>
+
+                    <form id="contactForm" action="https://formsubmit.co/amiimugadgets2026ug@gmail.com" method="POST">
+                        <!-- Formsubmit.co hidden config -->
+                        <input type="hidden" name="_subject" value="Contact Form Message - Amiimu Gadgets">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" id="contactNextUrl" value="">
+                        <input type="text" name="_honey" style="display:none">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name <span class="required" style="color:#e74c3c">*</span></label>
+                                <input type="text" name="Name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address <span class="required" style="color:#e74c3c">*</span></label>
+                                <input type="email" name="email" placeholder="Your email address" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" name="Phone Number" placeholder="+256 7XX XXX XXX">
+                            </div>
+                            <div class="form-group">
+                                <label>Subject <span class="required" style="color:#e74c3c">*</span></label>
+                                <select name="Subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="Order Inquiry">Order Inquiry</option>
+                                    <option value="Product Question">Product Question</option>
+                                    <option value="Repair Service">Repair Service</option>
+                                    <option value="Console Chipping">Console Chipping</option>
+                                    <option value="Delivery Information">Delivery Information</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message <span class="required" style="color:#e74c3c">*</span></label>
+                            <textarea name="Message" placeholder="Tell us how we can help you..." rows="6" required></textarea>
+                        </div>
+
+                        <button type="submit" class="contact-submit-btn">
+                            <i class='bx bx-send'></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions Section -->
+    <section class="section-padding" style="background: linear-gradient(180deg, #e8ecf1, var(--dark));">
+        <div class="container">
+            <h2 class="section-title fade-in">Quick <span class="highlight-text">Actions</span></h2>
+            <p class="section-subtitle fade-in">Reach us faster through these direct channels</p>
+            <div class="quick-actions-grid">
+                <a href="tel:+256743485380" class="why-card fade-in" style="text-decoration: none; cursor: pointer;">
+                    <div class="why-icon">
+                        <i class='bx bx-phone-call'></i>
+                    </div>
+                    <h3>Call Us Now</h3>
+                    <p>Speak directly with our team for immediate assistance with your orders, product inquiries, or technical support. We are always ready to help.</p>
+                </a>
+                <a href="https://wa.me/256743485380" target="_blank" class="why-card fade-in" style="text-decoration: none; cursor: pointer;">
+                    <div class="why-icon" style="background: rgba(37, 211, 102, 0.15);">
+                        <i class='bx bxl-whatsapp' style="color: #25d366;"></i>
+                    </div>
+                    <h3>WhatsApp Chat</h3>
+                    <p>Send us a message on WhatsApp for quick responses. Share images of products you want, ask about prices, or track your order status conveniently.</p>
+                </a>
+                <a href="#contactFormWrapper" class="why-card fade-in" style="text-decoration: none; cursor: pointer;" id="emailActionBtn">
+                    <div class="why-icon" style="background: rgba(43, 184, 196, 0.12);">
+                        <i class='bx bx-envelope' style="color: var(--highlight);"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>For detailed inquiries, bulk orders, or formal communication, fill out our contact form. We respond to all messages within 24 hours with comprehensive answers.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section-padding" style="background: var(--dark); padding-top: 0;">
+        <div class="container">
+            <h2 class="section-title fade-in">Find <span class="highlight-text">Us</span></h2>
+            <p class="section-subtitle fade-in">Visit our store on Kampala Road, EM Plaza, Level 2, Shop 407</p>
+            <div class="map-container fade-in">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7573456781234!2d32.5783!3d0.3125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbc0f9e7733d1%3A0x2e6f8e3e5a6b4c8d!2sKampala+Road!5e0!3m2!1sen!2sug!4v1700000000000!5m2!1sen!2sug"
+                    width="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Amiimu Gadgets Location - Kampala Road">
+                </iframe>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://maps.google.com/?q=Kampala+Road+EM+Plaza+Uganda" target="_blank" class="btn-secondary">
+                    <i class='bx bx-map'></i> Get Directions on Google Maps
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding" style="background: linear-gradient(180deg, #e8ecf1, var(--dark));">
+        <div class="container">
+            <h2 class="section-title fade-in">Frequently Asked <span class="highlight-text">Questions</span></h2>
+            <p class="section-subtitle fade-in">Quick answers to common questions about our products and services</p>
+            <div class="faq-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class='bx bx-truck'></i>
+                    </div>
+                    <h3>Do you deliver across Uganda?</h3>
+                    <p>Yes, we deliver to all districts in Uganda. Orders within Kampala are delivered within 24 hours, while up-country deliveries take 2-3 business days. Delivery fees vary by location and are communicated before order confirmation.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class='bx bx-check-shield'></i>
+                    </div>
+                    <h3>Are your products genuine?</h3>
+                    <p>Absolutely. We source all our products from authorized distributors and guarantee 100% authenticity. Every item comes with our quality assurance guarantee. Pre-owned items are thoroughly tested before sale.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class='bx bx-wrench'></i>
+                    </div>
+                    <h3>Do you offer repair services?</h3>
+                    <p>Yes, we provide professional repair services for all PlayStation and Xbox consoles. Our experienced technicians handle hardware repairs, software issues, maintenance, and console chipping with genuine replacement parts.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class='bx bx-credit-card'></i>
+                    </div>
+                    <h3>What payment methods do you accept?</h3>
+                    <p>We accept Mobile Money (MTN MoMo and Airtel Money), bank transfers, cash on delivery within Kampala, and online payments. Contact us for specific payment arrangements for your order.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter section-padding">
+        <div class="container">
+            <div class="newsletter-content fade-in">
+                <h2>Stay in the <span class="highlight-text">Game</span></h2>
+                <p>Subscribe to our newsletter for the latest gaming news, product arrivals, and exclusive deals from Amiimu Gadgets.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required id="newsletterEmail">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p id="newsletterMsg" style="margin-top: 15px; display: none; color: var(--highlight);"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../Logo/logo.png" alt="Amiimu Gadgets">
+                        <span class="footer-logo-text">Amiimu<span>Gadgets</span></span>
+                    </div>
+                    <p>Kampala's premier gaming store. We provide authentic PlayStation, Xbox consoles, accessories, games, and professional repair services to gamers across Uganda.</p>
+                    <div class="footer-social">
+                       <a href="https://facebook.com/AmiimuGadgets" target="-blank rel="nooper"  aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+                        <a href="https://instagram.com/amiimugadgets" aria-label="Instagram"  target="-blank rel="nooper" ><i class='bx bxl-instagram'></i></a>
+                        <a href="https://x.com/AmiimuR" aria-label="Twitter"  target="-blank rel="nooper" ><i class='bx bxl-twitter'></i></a>
+                        <a href="https://tiktok.com/@amiimu.gadgers.ug" aria-label="WhatsApp"  target="-blank rel="nooper" ><i class='bx bxl-whatsapp'></i></a>
+                        <a href="https://wa.me/256743485380" target="_blank" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html"><i class='bx bx-chevron-right'></i> Home</a></li>
+                        <li><a href="Shop.html"><i class='bx bx-chevron-right'></i> Shop</a></li>
+                        <li><a href="About.html"><i class='bx bx-chevron-right'></i> About Us</a></li>
+                        <li><a href="Contact.html"><i class='bx bx-chevron-right'></i> Contact</a></li>
+                        <li><a href="Cart/cart.html"><i class='bx bx-chevron-right'></i> Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="About.html"><i class='bx bx-chevron-right'></i> Console Sales</a></li>
+                        <li><a href="About.html"><i class='bx bx-chevron-right'></i> Game Sales</a></li>
+                        <li><a href="About.html"><i class='bx bx-chevron-right'></i> Console Repairs</a></li>
+                        <li><a href="About.html"><i class='bx bx-chevron-right'></i> Chipping Services</a></li>
+                        <li><a href="About.html"><i class='bx bx-chevron-right'></i> Accessories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <div class="footer-contact-item">
+                        <i class='bx bx-map'></i>
+                        <p>Kampala Road, EM Plaza, Level 2, Shop 407</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class='bx bx-phone'></i>
+                        <p><a href="tel:+256743485380" style="color: inherit;">+256 743485380</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class='bx bx-envelope'></i>
+                        <p>amiimugadgets2026ug@gmail.com</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class='bx bxl-whatsapp'></i>
+                        <p><a href="https://wa.me/256743485380" target="_blank" style="color: inherit;">+256 743485380</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2026 Amiimu Gadgets. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/256743485380" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class='bx bxl-whatsapp'></i>
+    </a>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class='bx bx-up-arrow-alt'></i>
+    </button>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Set the _next redirect URL for Formsubmit.co
+            var currentUrl = window.location.href.split('?')[0];
+            var contactNextUrl = document.getElementById('contactNextUrl');
+            if (contactNextUrl) {
+                contactNextUrl.value = currentUrl + '?sent=true';
+            }
+
+            // Check if returning after successful submission
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('sent') === 'true') {
+                var form = document.getElementById('contactForm');
+                var success = document.getElementById('contactSuccess');
+                if (form && success) {
+                    form.style.display = 'none';
+                    success.classList.add('visible');
+                }
+                // Clean URL without reloading
+                window.history.replaceState({}, '', currentUrl);
+            }
+
+            // "Email Us" quick action - smooth scroll to contact form
+            var emailActionBtn = document.getElementById('emailActionBtn');
+            if (emailActionBtn) {
+                emailActionBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var formWrapper = document.getElementById('contactFormWrapper');
+                    if (formWrapper) {
+                        formWrapper.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        // Focus the first input after scroll
+                        setTimeout(function () {
+                            var firstInput = formWrapper.querySelector('input:not([type="hidden"])');
+                            if (firstInput) firstInput.focus();
+                        }, 600);
+                    }
+                });
+            }
+
+            // Newsletter form
+            var newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    var msg = document.getElementById('newsletterMsg');
+                    if (msg) {
+                        msg.textContent = 'Thank you for subscribing! You will hear from us soon.';
+                        msg.style.display = 'block';
+                    }
+                    newsletterForm.reset();
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
